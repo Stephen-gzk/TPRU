@@ -1,211 +1,138 @@
-# EasyR1: An Efficient, Scalable, Multi-Modality RL Training Framework
+Here is the GitHub README.md content generated for the **TPRU** paper, formatted according to your request and the provided template.
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/hiyouga/EasyR1)](https://github.com/hiyouga/EasyR1/stargazers)
-[![Twitter](https://img.shields.io/twitter/follow/llamafactory_ai)](https://twitter.com/llamafactory_ai)
+---
 
-This project is a clean fork of the original [veRL](https://github.com/volcengine/verl) project to support vision language models, we thank all the authors for providing such a high-performance RL training framework.
+# TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models (ICLR 2026)
 
-EasyR1 is efficient and scalable due to the design of **[HybirdEngine](https://arxiv.org/abs/2409.19256)** and the latest release of **[vLLM](https://github.com/vllm-project/vllm)**'s SPMD mode.
+The official repository for "TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models".
 
-## Features
+<p align="center">
+🤗 <a href="[https://huggingface.co/datasets/Stephen-gzk/TPRU](https://www.google.com/search?q=https://huggingface.co/datasets/Stephen-gzk/TPRU)">TPRU Dataset</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="[https://huggingface.co/Stephen-gzk/TPRU-7B](https://www.google.com/search?q=https://huggingface.co/Stephen-gzk/TPRU-7B)">TPRU-7B Model</a>&nbsp&nbsp | &nbsp&nbsp📑 <a href="[https://arxiv.org/abs/2602.xxxxx](https://www.google.com/search?q=https://arxiv.org/abs/2602.xxxxx)">Paper (ICLR 2026)</a>&nbsp&nbsp
+</p>
 
-- Supported models
-  - Llama3/Qwen2/Qwen2.5/Qwen3 language models
-  - Qwen2/Qwen2.5-VL vision language models
-  - DeepSeek-R1 distill models
+## News
 
-- Supported algorithms
-  - GRPO
-  - Reinforce++
-  - ReMax
-  - RLOO
+* **[2026/02/11]** We released the weights, code, and the **TPRU** dataset!
+* 
+**[2026/01/20]** Our paper has been accepted to **ICLR 2026**! 
 
-- Supported datasets
-  - Any text, vision-text dataset in a [specific format](#custom-dataset)
 
-- Supported tricks
-  - Padding-free training
-  - Resuming from checkpoint
-  - Wandb & SwanLab & Mlflow & Tensorboard tracking
+* 
+**[2025/12/15]** We introduce **TPRU**, a large-scale dataset designed to cultivate temporal reasoning in MLLMs via three complementary tasks: *Temporal Reordering*, *Next-Frame Prediction*, and *Previous-Frame Review*.
 
-## Requirements
 
-### Software Requirements
 
-- Python 3.9+
-- transformers>=4.51.0
-- flash-attn>=2.4.3
-- vllm>=0.8.3
+## Introduction
 
-We provide a [Dockerfile](./Dockerfile) to easily build environments.
+Multimodal Large Language Models (MLLMs), particularly smaller variants, often exhibit a critical deficiency in understanding temporal and procedural visual data. This gap hinders their application in real-world embodied AI tasks like robotic manipulation and navigation.
 
-We recommend using the [pre-built docker image](https://hub.docker.com/r/hiyouga/verl) in EasyR1.
+To address this, we introduce **TPRU** (**T**emporal-**P**rocedural **R**easoning and **U**nderstanding), a dataset and training paradigm designed to bridge this gap. TPRU sources 24,750 high-quality training samples from diverse embodied scenarios (Robotic Manipulation, LEGO Assembly, GUI Navigation, etc.). By leveraging reinforcement learning (GRPO) with our specific temporal tasks, our **TPRU-7B** model achieves state-of-the-art results, significantly performing larger proprietary models like **GPT-4o** on procedural understanding benchmarks.
 
-```bash
-docker pull hiyouga/verl:ngc-th2.6.0-cu126-vllm0.8.4-flashinfer0.2.2-cxx11abi0
-```
+Figure 1: Overview of the TPRU dataset and task formulation. Unlike prior datasets, TPRU enforces active cross-modal validation through negative samples and structured temporal tasks.
 
-### Hardware Requirements
+## Dataset: TPRU
 
-\* *estimated*
+The TPRU dataset is systematically designed to enhance procedural logic through three core tasks:
 
-| Method                   | Bits |  1.5B  |   3B   |   7B   |   32B   |
-| ------------------------ | ---- | ------ | ------ | ------ | ------- |
-| GRPO Full Fine-Tuning    |  AMP | 2*24GB | 4*40GB | 8*40GB | 16*80GB |
-| GRPO Full Fine-Tuning    | BF16 | 1*24GB | 1*40GB | 4*40GB |  8*80GB |
+1. 
+**Temporal Reordering:** Reconstructing the correct sequence of shuffled frames.
 
-> [!NOTE]
-> Use `worker.actor.fsdp.torch_dtype=bf16` and `worker.actor.optim.strategy=adamw_bf16` to enable bf16 training.
->
-> We are working hard to reduce the VRAM in RL training, LoRA support will be integrated in next updates.
 
-## Tutorial: Run Qwen2.5-VL GRPO on [Geometry3K](https://huggingface.co/datasets/hiyouga/geometry3k) Dataset in Just 3 Steps
+2. 
+**Next-Frame Prediction:** Predicting the immediate future state given a sequence.
 
-![image](assets/qwen2_5_vl_7b_geo.png)
 
-### Installation
+3. 
+**Previous-Frame Review:** deducing the prerequisite state given an outcome.
 
-```bash
-git clone https://github.com/hiyouga/EasyR1.git
-cd EasyR1
-pip install -e .
-```
 
-### GRPO Training
 
-```bash
-bash examples/qwen2_5_vl_7b_geo3k_grpo.sh
-```
+| Dataset Split | Samples | Source Scenarios |
+| --- | --- | --- |
+| **TPRU-25K (Train)** | 24,750 | Robotic Manipulation, LEGO, GUI, Navigation 
 
-### Merge Checkpoint in Hugging Face Format
+ |
+| **TPRU-Test (Eval)** | 461 | Manually curated & verified challenging instances 
+
+ |
+
+## Performance
+
+Our RL-finetuned **TPRU-7B** demonstrates massive improvements in temporal reasoning, outperforming significantly larger models.
+
+### TPRU-Test Results
+
+On our manually curated test set, TPRU-7B achieves **75.70%** accuracy, surpassing GPT-4o (67.68%) and Gemini-1.5-Flash (65.35%).
+
+### Generalization on Public Benchmarks
+
+TPRU-7B also generalizes effectively to established benchmarks, showing significant gains on **MuirBench** and **LEGO-Puzzles** without degrading general capabilities.
+
+| Model | TPRU-Test | MuirBench (Overall) | LEGO-Puzzles (Overall) |
+| --- | --- | --- | --- |
+| Qwen2.5-VL-7B (Base) | 50.33% | 58.35% | 36.5% |
+| **TPRU-7B (Ours)** | **75.70%** | **65.04%** | **42.8%** |
+| GPT-4o | 67.68% | 68.00% | 57.7% |
+
+## Installation
 
 ```bash
-python3 scripts/model_merger.py --local_dir checkpoints/easy_r1/exp_name/global_step_1/actor
+git clone https://github.com/Stephen-gzk/TPRU.git
+
+cd TPRU
+
+conda create -n tpru python=3.10
+
+conda activate tpru
+
+pip install torch==2.6.0
+
+pip install requirements.txt
+
+wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+
+pip install flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+
 ```
 
-> [!TIP]
-> If you encounter issues with connecting to Hugging Face, consider using `export HF_ENDPOINT=https://hf-mirror.com`.
->
-> If you want to use SwanLab logger, consider using `bash examples/qwen2_5_vl_7b_geo3k_swanlab.sh`.
+## Training & Evaluation
 
-## Custom Dataset
+We utilize the **Easy-R1** framework with Group-wise Preference Optimization (GRPO) for training.
 
-Please refer to the example datasets to prepare your own dataset.
+### Training
 
-- Text dataset: https://huggingface.co/datasets/hiyouga/math12k
-- Image-text dataset: https://huggingface.co/datasets/hiyouga/geometry3k
-- Multi-image-text dataset: https://huggingface.co/datasets/hiyouga/journeybench-multi-image-vqa
-
-## How to Understand GRPO in EasyR1
-
-![image](assets/easyr1_grpo.png)
-
-- To learn about the GRPO algorithm, you can refer to [Hugging Face's blog](https://huggingface.co/docs/trl/v0.16.1/en/grpo_trainer).
-
-## How to Run 70B+ Model in Multi-node Environment
-
-1. Start the Ray head node.
+To reproduce the TPRU-7B model using the TPRU-25K dataset:
 
 ```bash
-ray start --head --port=6379 --dashboard-host=0.0.0.0
+# Example script for GRPO training
+bash scripts/train_tpru_7b_grpo.sh
+
 ```
 
-2. Start the Ray worker node and connect to the head node.
+### Evaluation
+
+To evaluate on TPRU-Test and other benchmarks using VLMEvalKit:
 
 ```bash
-ray start --address=<head_node_ip>:6379
+# Evaluate on TPRU-Test
+bash scripts/eval_tpru_test.sh --model_path /path/to/tpru-7b
+
 ```
-
-3. Check the Ray resource pool.
-
-```bash
-ray status
-```
-
-4. Run training script on the Ray head node only.
-
-```bash
-bash examples/qwen2_5_vl_7b_geo3k_grpo.sh
-```
-
-See the **[veRL's official doc](https://verl.readthedocs.io/en/latest/start/multinode.html)** for more details about multi-node training and Ray debugger.
-
-## Other Baselines
-
-We also reproduced the following two baselines of the [R1-V](https://github.com/deep-agent/R1-V) project.
-- [CLEVR-70k-Counting](examples/baselines/qwen2_5_vl_3b_clevr.sh): Train the Qwen2.5-VL-3B-Instruct model on counting problem.
-- [GeoQA-8k](examples/baselines/qwen2_5_vl_3b_geoqa8k.sh): Train the Qwen2.5-VL-3B-Instruct model on GeoQA problem.
-
-## Performance Baselines
-
-See [baselines.md](assets/baselines.md).
-
-## Awesome Work using EasyR1
-
-- **MMR1**: Advancing the Frontiers of Multimodal Reasoning. [![[code]](https://img.shields.io/github/stars/LengSicong/MMR1)](https://github.com/LengSicong/MMR1)
-- **Vision-R1**: Incentivizing Reasoning Capability in Multimodal Large Language Models. [![[code]](https://img.shields.io/github/stars/Osilly/Vision-R1)](https://github.com/Osilly/Vision-R1) [![[arxiv]](https://img.shields.io/badge/arxiv-2503.06749-blue)](https://arxiv.org/abs/2503.06749)
-- **Seg-Zero**: Reasoning-Chain Guided Segmentation via Cognitive Reinforcement. [![[code]](https://img.shields.io/github/stars/dvlab-research/Seg-Zero)](https://github.com/dvlab-research/Seg-Zero) [![[arxiv]](https://img.shields.io/badge/arxiv-2503.06520-blue)](https://arxiv.org/abs/2503.06520)
-- **MetaSpatial**: Reinforcing 3D Spatial Reasoning in VLMs for the Metaverse. [![[code]](https://img.shields.io/github/stars/PzySeere/MetaSpatial)](https://github.com/PzySeere/MetaSpatial) [![[arxiv]](https://img.shields.io/badge/arxiv-2503.18470-blue)](https://arxiv.org/abs/2503.18470)
-- **Temporal-R1**: Envolving Temporal Reasoning Capability into LMMs via Temporal Consistent Reward. [![[code]](https://img.shields.io/github/stars/appletea233/Temporal-R1)](https://github.com/appletea233/Temporal-R1)
-- **NoisyRollout**: Reinforcing Visual Reasoning with Data Augmentation. [![[code]](https://img.shields.io/github/stars/John-AI-Lab/NoisyRollout)](https://github.com/John-AI-Lab/NoisyRollout) [![[arxiv]](https://img.shields.io/badge/arxiv-2504.13055-blue)](https://arxiv.org/pdf/2504.13055)
-- **GUI-R1**: A Generalist R1-Style Vision-Language Action Model For GUI Agents. [![[code]](https://img.shields.io/github/stars/ritzz-ai/GUI-R1)](https://github.com/ritzz-ai/GUI-R1) [![[arxiv]](https://img.shields.io/badge/arxiv-2504.10458-blue)](https://arxiv.org/abs/2504.10458)
-- **R1-Track**: Direct Application of MLLMs to Visual Object Tracking via Reinforcement Learning. [![[code]](https://img.shields.io/github/stars/Wangbiao2/R1-Track)](https://github.com/Wangbiao2/R1-Track)
-
-## TODO
-
-- Support LoRA (high priority).
-- Support ulysses parallelism for VLMs (middle priority).
-- Support more VLM architectures.
-
-> [!NOTE]
-> We will not provide scripts for supervised fine-tuning and inference in this project. If you have such requirements, we recommend using [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory).
-
-### Known bugs
-
-These features are temporarily disabled for now, we plan to fix them one-by-one in the future updates.
-
-- Vision language models are not compatible with ulysses parallelism yet.
-
-## Discussion Group
-
-👋 Join our [WeChat group](assets/wechat.jpg).
-
-## FAQs
-
-> ValueError: Image features and image tokens do not match: tokens: 8192, features 9800
-
-Increase the `data.max_prompt_length` or reduce the `data.max_pixels`.
-
-> RuntimeError: CUDA Error: out of memory at /workspace/csrc/cumem_allocator.cpp:62
-
-Reduce the `worker.rollout.gpu_memory_utilization` and enable `worker.actor.offload.offload_params`.
-
-> RuntimeError: 0 active drivers ([]). There should only be one.
-
-Uninstall `deepspeed` from the current python environment.
 
 ## Citation
 
-Core contributors: [Yaowei Zheng](https://github.com/hiyouga), [Junting Lu](https://github.com/AL-377), [Shenzhi Wang](https://github.com/Shenzhi-Wang), [Zhangchi Feng](https://github.com/BUAADreamer), [Dongdong Kuang](https://github.com/Kuangdd01) and Yuwen Xiong
-
-We also thank Guangming Sheng and Chi Zhang for helpful discussions.
+If you find this repo or the TPRU dataset useful for your research, please consider citing our ICLR 2026 paper:
 
 ```bibtex
-@misc{zheng2025easyr1,
-  title        = {EasyR1: An Efficient, Scalable, Multi-Modality RL Training Framework},
-  author       = {Yaowei Zheng, Junting Lu, Shenzhi Wang, Zhangchi Feng, Dongdong Kuang, Yuwen Xiong},
-  howpublished = {\url{https://github.com/hiyouga/EasyR1}},
-  year         = {2025}
+@inproceedings{gao2026tpru,
+  title={TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models},
+  author={Gao, Zhenkun and Wang, Xuhong and Tan, Xin and Xie, Yuan},
+  booktitle={Published as a conference paper at ICLR 2026},
+  year={2026}
 }
+
 ```
 
-We recommend to also cite the original work.
+## Acknowledgements
 
-```bibtex
-@article{sheng2024hybridflow,
-  title   = {HybridFlow: A Flexible and Efficient RLHF Framework},
-  author  = {Guangming Sheng and Chi Zhang and Zilingfeng Ye and Xibin Wu and Wang Zhang and Ru Zhang and Yanghua Peng and Haibin Lin and Chuan Wu},
-  year    = {2024},
-  journal = {arXiv preprint arXiv: 2409.19256}
-}
-```
+We thank the developers of [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL), [Easy-R1](https://github.com/hiyouga/EasyR1), and [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) for their open-source contributions.
