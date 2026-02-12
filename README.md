@@ -3,16 +3,20 @@
 The official repository for "TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models".
 
 <p align="center">
-🤗 <a href="[https://huggingface.co/datasets/Stephen-gzk/TPRU](https://www.google.com/search?q=https://huggingface.co/datasets/Stephen-gzk/TPRU)">TPRU Dataset</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="[https://huggingface.co/Stephen-gzk/TPRU-7B](https://www.google.com/search?q=https://huggingface.co/Stephen-gzk/TPRU-7B)">TPRU-7B Model</a>&nbsp&nbsp | &nbsp&nbsp📑 <a href="[https://arxiv.org/abs/2602.xxxxx](https://www.google.com/search?q=https://arxiv.org/abs/2602.xxxxx)">Paper (ICLR 2026)</a>&nbsp&nbsp
+
+<p align="center">
+🤗 <a href="https://huggingface.co/datasets/Stephengzk/TPRU-25k">TPRU 25k</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/datasets/Stephengzk/TPRU-test">TPRU-test</a>&nbsp&nbsp | &nbsp&nbsp📑 <a href="https://openreview.net/forum?id=crOvAD9MPA&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2026%2FConference%2FAuthors%23your-submissions)">Paper (ICLR 2026)</a>&nbsp&nbsp
+</p>
+
+<p align="center">
+       🤗 <a href="https://huggingface.co/Stephengzk/TPRU-3B">TPRU-3B</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/Stephengzk/TPRU-7B">TPRU-7B<a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/Stephengzk/TPRU-32B">TPRU-32B</a>&nbsp&nbsp |  &nbsp&nbsp📑 <a href="https://openreview.net/forum?id=crOvAD9MPA&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2026%2FConference%2FAuthors%23your-submissions)">Arxiv Paper</a>&nbsp&nbsp
 </p>
 
 ## News
 
-**[2026/02/12]** We released the weights, code, and the **TPRU** dataset!
-* 
-**[2026/01/26]** Our paper has been accepted to **ICLR 2026**! 
-* 
-**[2025/9/25]** We introduce **TPRU**, a large-scale dataset designed to cultivate temporal reasoning in MLLMs via three complementary tasks: *Temporal Reordering*, *Next-Frame Prediction*, and *Previous-Frame Review*.
+- [2026/02/12] **We released [RL Dataset (Vision-R1-rl)](https://huggingface.co/datasets/Osilly/Vision-R1-rl), [Vision-R1-CI-7B](https://huggingface.co/Osilly/Vision-R1-CI-7B), [Vision-R1-32B](https://huggingface.co/Osilly/Vision-R1-32B), [Vision-R1-72B](https://huggingface.co/Osilly/Vision-R1-72B)** !
+- [2026/01/26] **TPRU has been accepted by ICLR 2026!** 
+- [2025/09/26] We introduce **TPRU**, a large-scale dataset designed to cultivate temporal reasoning in MLLMs via three complementary tasks: *Temporal Reordering*, *Next-Frame Prediction*, and *Previous-Frame Review*.
 
 
 
@@ -28,22 +32,19 @@ Figure 1: Overview of the TPRU dataset and task formulation. Unlike prior datase
 
 The TPRU dataset is systematically designed to enhance procedural logic through three core tasks:
 
-1. 
-**Temporal Reordering:** Reconstructing the correct sequence of shuffled frames.
+1. **Temporal Reordering:** Reconstructing the correct sequence of shuffled frames.
 
 
-2. 
-**Next-Frame Prediction:** Predicting the immediate future state given a sequence.
+2. **Next-Frame Prediction:** Predicting the immediate future state given a sequence.
 
 
-3. 
-**Previous-Frame Review:** deducing the prerequisite state given an outcome.
+3. **Previous-Frame Review:** deducing the prerequisite state given an outcome.
 
 
 
-| Dataset Split | Samples | Source Scenarios |
-| --- | --- | --- |
-| **TPRU-25K (Train)** | 24,750 | Robotic Manipulation, LEGO, GUI, Navigation 
+| Dataset Split        | Samples | Source Scenarios                            |
+| -------------------- | ------- | ------------------------------------------- |
+| **TPRU-25K (Train)** | 24,750  | Robotic Manipulation, LEGO, GUI, Navigation |
 
  |
 | **TPRU-Test (Eval)** | 461 | Manually curated & verified challenging instances 
@@ -62,11 +63,11 @@ On our manually curated test set, TPRU-7B achieves **75.70%** accuracy, surpassi
 
 TPRU-7B also generalizes effectively to established benchmarks, showing significant gains on **MuirBench** and **LEGO-Puzzles** without degrading general capabilities.
 
-| Model | TPRU-Test | MuirBench (Overall) | LEGO-Puzzles (Overall) |
-| --- | --- | --- | --- |
-| Qwen2.5-VL-7B (Base) | 50.33% | 58.35% | 36.5% |
-| **TPRU-7B (Ours)** | **75.70%** | **65.04%** | **42.8%** |
-| GPT-4o | 67.68% | 68.00% | 57.7% |
+| Model                | TPRU-Test  | MuirBench (Overall) | LEGO-Puzzles (Overall) |
+| -------------------- | ---------- | ------------------- | ---------------------- |
+| Qwen2.5-VL-7B (Base) | 50.33%     | 58.35%              | 36.5%                  |
+| **TPRU-7B (Ours)**   | **75.70%** | **65.04%**          | **42.8%**              |
+| GPT-4o               | 67.68%     | 68.00%              | 57.7%                  |
 
 ## Installation
 
@@ -130,3 +131,4 @@ If you find this repo or the TPRU dataset useful for your research, please consi
 ## Acknowledgements
 
 We thank the developers of [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL), [Easy-R1](https://github.com/hiyouga/EasyR1), and [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) for their open-source contributions.
+
