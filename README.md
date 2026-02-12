@@ -1,7 +1,3 @@
-Here is the GitHub README.md content generated for the **TPRU** paper, formatted according to your request and the provided template.
-
----
-
 # TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models (ICLR 2026)
 
 The official repository for "TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models".
@@ -12,13 +8,11 @@ The official repository for "TPRU: Advancing Temporal and Procedural Understandi
 
 ## News
 
-* **[2026/02/11]** We released the weights, code, and the **TPRU** dataset!
+**[2026/02/12]** We released the weights, code, and the **TPRU** dataset!
 * 
-**[2026/01/20]** Our paper has been accepted to **ICLR 2026**! 
-
-
+**[2026/01/26]** Our paper has been accepted to **ICLR 2026**! 
 * 
-**[2025/12/15]** We introduce **TPRU**, a large-scale dataset designed to cultivate temporal reasoning in MLLMs via three complementary tasks: *Temporal Reordering*, *Next-Frame Prediction*, and *Previous-Frame Review*.
+**[2025/9/25]** We introduce **TPRU**, a large-scale dataset designed to cultivate temporal reasoning in MLLMs via three complementary tasks: *Temporal Reordering*, *Next-Frame Prediction*, and *Previous-Frame Review*.
 
 
 
