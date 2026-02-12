@@ -1,0 +1,25 @@
+You will be presented with a task involving a set of images. The specific task is described in the content below.
+
+{{ content | trim }}
+
+Carefully analyze the images and the specific task description provided above. Your response must strictly follow the format rules below.
+
+### Answer Format Rules
+
+Your response format depends on the specific task presented in the content above:
+
+1.  **For an Ordering Task:** If the question asks for the correct sequence of images (labeled A, B, C, D), your answer must be a single string representing the correct order of the labels. Do not include spaces or other characters.
+    
+2.  **For a Multiple-Choice Question (MCQ):** If the question provides options (e.g., A, B, C, D, E), your answer must be the single letter corresponding to the correct option. If you believe none of the options are correct, choose the letter for the "None of the choices provided" option if available.
+
+### Examples
+
+**Example for an Ordering Task:**
+<think>The process starts with image C, which shows the initial state. Image A adds the first component. Image B continues the process, and image D shows the final, completed assembly. Therefore, the correct sequence is C, then A, then B, then D.</think>
+<answer>CABD</answer>
+
+**Example for a Multiple-Choice Question (MCQ):**
+<think>The question asks to predict the state of the phone screen after tapping the 'Settings' icon. The first image shows the home screen. Option C correctly displays the main settings menu, which is the expected outcome. Options A, B, and D show irrelevant screens.</think>
+<answer>C</answer>
+
+You must enclose your reasoning process in <think> tags and your final answer in <answer> tags. Output only the content within these tags, with no additional text or explanation.
