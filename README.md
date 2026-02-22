@@ -14,7 +14,7 @@ The official repository for "TPRU: Advancing Temporal and Procedural Understandi
 
 ## News
 
-- [2026/02/12] **We released [RL Dataset (Vision-R1-rl)](https://huggingface.co/datasets/Osilly/Vision-R1-rl), [Vision-R1-CI-7B](https://huggingface.co/Osilly/Vision-R1-CI-7B), [Vision-R1-32B](https://huggingface.co/Osilly/Vision-R1-32B), [Vision-R1-72B](https://huggingface.co/Osilly/Vision-R1-72B)** !
+- [2026/02/12] **We released [TPRU-25k](https://huggingface.co/datasets/Stephengzk/TPRU-25k), [TPRU-test](https://huggingface.co/datasets/Stephengzk/TPRU-test), [TPRU-3B](https://huggingface.co/Stephengzk/TPRU-3B), [TPRU-7B](https://huggingface.co/Stephengzk/TPRU-7B), [TPRU-32B](https://huggingface.co/Stephengzk/TPRU-32B)** !
 - [2026/01/26] **TPRU has been accepted by ICLR 2026!** 
 - [2025/09/26] We introduce **TPRU**, a large-scale dataset designed to cultivate temporal reasoning in MLLMs via three complementary tasks: *Temporal Reordering*, *Next-Frame Prediction*, and *Previous-Frame Review*.
 
