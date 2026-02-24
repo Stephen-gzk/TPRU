@@ -9,7 +9,7 @@ The official repository for "TPRU: Advancing Temporal and Procedural Understandi
 </p>
 
 <p align="center">
-       🤗 <a href="https://huggingface.co/Stephengzk/TPRU-3B">TPRU-3B</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/Stephengzk/TPRU-7B">TPRU-7B<a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/Stephengzk/TPRU-32B">TPRU-32B</a>&nbsp&nbsp |  &nbsp&nbsp📑 <a href="https://openreview.net/forum?id=crOvAD9MPA&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2026%2FConference%2FAuthors%23your-submissions)">Arxiv Paper</a>&nbsp&nbsp
+       🤗 <a href="https://huggingface.co/Stephengzk/TPRU-3B">TPRU-3B</a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/Stephengzk/TPRU-7B">TPRU-7B<a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/Stephengzk/TPRU-32B">TPRU-32B</a>&nbsp&nbsp |  &nbsp&nbsp📑 <a href="https://arxiv.org/abs/2602.18884">Arxiv Paper</a>&nbsp&nbsp
 </p>
 
 ## News
@@ -140,11 +140,10 @@ To evaluate on TPRU-Test and other benchmarks using VLMEvalKit:
 If you find this repo or the TPRU dataset useful for your research, please consider citing our ICLR 2026 paper:
 
 ```bibtex
-@inproceedings{gao2026tpru,
+@inproceedings{gaotpru,
   title={TPRU: Advancing Temporal and Procedural Understanding in Large Multimodal Models},
   author={Gao, Zhenkun and Wang, Xuhong and Tan, Xin and Xie, Yuan},
-  booktitle={Published as a conference paper at ICLR 2026},
-  year={2026}
+  booktitle={The Fourteenth International Conference on Learning Representations}
 }
 
 ```
